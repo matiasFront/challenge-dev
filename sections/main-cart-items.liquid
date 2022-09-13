@@ -261,18 +261,18 @@ input#delivery:focus-visible {
 
     <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
     <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
-    {%- if shop.metafields.challenges.challenge1.enabled == true -%}
+    {%- if shop.metafields.challengesDev.challenge.enabled == true -%}
         <div class="tw-flex tw-justify-end tw-mt-4">
             <label for="">Delivery date</label>
             <input type="text" id="delivery" class="tw-ml-2 tw-border-1 tw-border-black tw-p-3 tw-rounded-md" name="attributes[Delivery Date]">
         </div>
-        {%- if shop.metafields.challenges.challenge1.weekends == true -%}
+        {%- if shop.metafields.challengesDev.challenge.weekends == true -%}
             <span class="tw-block tw-text-right tw-text-xl tw-text-red-500">We can deliver your package on weekends</span>
         {%- else -%}
             <span class="tw-block tw-text-right tw-text-xl tw-text-red-500">We can't deliver your package on weekends</span>
         {%- endif -%}
-        {%- if shop.metafields.challenges.challenge1.additionalText != blank -%}
-            <span class="tw-block tw-text-right tw-text-xl tw-text-gray-500">{{shop.metafields.challenges.challenge1.additionalText}}</span>
+        {%- if shop.metafields.challengesDev.challenge.additionalText != blank -%}
+            <span class="tw-block tw-text-right tw-text-xl tw-text-gray-500">{{shop.metafields.challengesDev.challenge.additionalText}}</span>
         {%- endif -%}
     {%- endif -%}
   </form>
