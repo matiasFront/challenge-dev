@@ -292,7 +292,7 @@ function getDate(initialDate, days, weekendsDelivery) {
 
     return date;
 };
-const options = JSON.parse('{{shop.metafields.challenges.challenge1 | json}}');
+const options = JSON.parse('{{shop.metafields.challengesDev.challenge | json}}');
 if(options.minDays > options.maxDays) {
     let days = options.maxDays;
     options.maxDays = options.minDays;
