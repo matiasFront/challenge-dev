@@ -261,11 +261,11 @@ input#delivery:focus-visible {
 
     <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
     <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
-    {%- assing enabled = section.settings.enabled -%}
-    {%- assing minDays = section.settings.minDays -%}
-    {%- assing maxDays = section.settings.maxDays -%}
-    {%- assing weekends = section.settings.weekends -%}
-    {%- assing additionalText = section.settings.additionalText -%} 
+    {%  assing enabled = section.settings.enabled %}
+    {% assing minDays = section.settings.minDays %}
+    {% assing maxDays = section.settings.maxDays %}
+    {% assing weekends = section.settings.weekends %}
+    {% assing additionalText = section.settings.additionalText %} 
     
     {% if enabled %}
       <div class="tw-flex tw-justify-end tw-mt-4">
@@ -329,8 +329,20 @@ const datepicker = new Datepicker(elem, datePickerOptions);
   "name": "t:sections.main-cart-items.name",
   "settings": [
     {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.main-cart-items.settings.show_vendor.label"
+    },
+    {
       "type": "header",
       "content": "DELIVERY DATE"
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable Delivery Date",
+      "default": true
     },
     {
       "type": "range",
@@ -354,12 +366,6 @@ const datepicker = new Datepicker(elem, datePickerOptions);
     },
     {
       "type": "checkbox",
-      "id": "enabled",
-      "label": "Enable Delivery Date",
-      "default": true
-    },
-    {
-      "type": "checkbox",
       "id": "weekends",
       "label": "Enable weekends delivery",
       "default": true
@@ -367,13 +373,7 @@ const datepicker = new Datepicker(elem, datePickerOptions);
     {
       "type": "text",
       "id": "additionalText",
-      "label": "Additional text",
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "default": false,
-      "label": "t:sections.main-cart-items.settings.show_vendor.label"
+      "label": "Additional text"
     }
     ]
 }
