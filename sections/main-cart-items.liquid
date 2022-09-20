@@ -261,9 +261,34 @@ input#delivery:focus-visible {
 
     <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
     <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
-    {%- if shop.metafields.challengesDev.challenge.enabled == true -%}
+    {%- assing enabled = section.settings.enabled -%}
+    {%- assing minDays = section.settings.minDays -%}
+    {%- assing maxDays = section.settings.maxDays -%}
+    {%- assing weekends = section.settings.weekends -%}
+    {%- assing additionalText = section.settings.additionalText -%} 
+    
+    {% if enabled %}
+      <div class="tw-flex tw-justify-end tw-mt-4">
+          <label for="delivery">Delivery date</label>
+          <input type="text" id="delivery" class="tw-ml-2 tw-border-1 tw-border-black tw-p-3 tw-rounded-md" name="attributes[Delivery Date]">
+      </div>
+    {% endif %}
+      {%- if weekends = true -%}
+      <span class="tw-block tw-text-right tw-text-xl tw-text-red-500">We can deliver your package on weekends</span>
+      {%- else -%} 
+      <span class="tw-block tw-text-right tw-text-xl tw-text-red-500">We can't deliver your package on weekends</span>
+      {%- endif -%}
+
+      {%- if additionalText != blank -%}
+      <span class="tw-block tw-text-right tw-text-xl tw-text-red-500">{{ additionalText }}</span>
+      {%- endif -%}
+
+
+      <!-- DEPRECATED_metafields:
+        
+        {%- if shop.metafields.challengesDev.challenge.enabled == true -%}
         <div class="tw-flex tw-justify-end tw-mt-4">
-            <label for="">Delivery date</label>
+            <label for="delivery">Delivery date</label>
             <input type="text" id="delivery" class="tw-ml-2 tw-border-1 tw-border-black tw-p-3 tw-rounded-md" name="attributes[Delivery Date]">
         </div>
         {%- if shop.metafields.challengesDev.challenge.weekends == true -%}
@@ -273,8 +298,8 @@ input#delivery:focus-visible {
         {%- endif -%}
         {%- if shop.metafields.challengesDev.challenge.additionalText != blank -%}
             <span class="tw-block tw-text-right tw-text-xl tw-text-gray-500">{{shop.metafields.challengesDev.challenge.additionalText}}</span>
-        {%- endif -%}
-    {%- endif -%}
+        {%- endif -%}-->
+    {%- endif -%} 
   </form>
 </cart-items>
 <script>
@@ -292,12 +317,17 @@ function getDate(initialDate, days, weekendsDelivery) {
 
     return date;
 };
-const options = JSON.parse('{{shop.metafields.challengesDev.challenge | json}}');
+const options = {
+  minDays: parseInt({{minDays}}),
+  maxDays: parseInt({{maxDays}}),
+  weekends: JSON.parse({{weekends}})
+};/* JSON.parse('{{shop.metafields.challengesDev.challenge | json}}');
+*/
 if(options.minDays > options.maxDays) {
     let days = options.maxDays;
     options.maxDays = options.minDays;
     options.minDays = days;
-};
+} ;
 const elem = document.getElementById('delivery');
 const initDate = getDate(new Date(), options.minDays, options.weekends);
 const finishDate = getDate(new Date(), options.maxDays, options.weekends);
@@ -322,7 +352,48 @@ const datepicker = new Datepicker(elem, datePickerOptions);
       "id": "show_vendor",
       "default": false,
       "label": "t:sections.main-cart-items.settings.show_vendor.label"
+    },
+    {
+    "type": "header",
+    "content": "DELIVERY DATE",
+    },
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable Delivery Date",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "minDays",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "d",
+      "default": 1,
+      "label": "Min days for delivery"
+    },
+    {
+      "type": "range",
+      "id": "maxDays",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "d",
+      "default": 1,
+      "label": "Max days for delivery"
+    },
+    {
+      "type": "checkbox",
+      "id": "weekends",
+      "label": "Enable weekends delivery",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "additionalText",
+      "label": "Additional text",
     }
-  ]
+    ]
 }
 {% endschema %}

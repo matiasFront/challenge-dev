@@ -3,6 +3,11 @@
     "cart-items": {
       "type": "main-cart-items",
       "settings": {
+        "enabled":  true,
+        "minDays": 1,
+        "maxDays": 1,
+        "weekends": true,
+        "additionalText": "Setting delivery date"
       }
     },
     "cart-footer": {
