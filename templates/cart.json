@@ -3,7 +3,7 @@
     "cart-items": {
       "type": "main-cart-items",
       "settings": {
-        "enabled":  true,
+        "enabled": true,
         "minDays": 1,
         "maxDays": 1,
         "weekends": true,

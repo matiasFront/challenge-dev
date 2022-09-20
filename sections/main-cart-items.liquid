@@ -272,7 +272,6 @@ input#delivery:focus-visible {
           <label for="delivery">Delivery date</label>
           <input type="text" id="delivery" class="tw-ml-2 tw-border-1 tw-border-black tw-p-3 tw-rounded-md" name="attributes[Delivery Date]">
       </div>
-    {% endif %}
       {%- if weekends = true -%}
       <span class="tw-block tw-text-right tw-text-xl tw-text-red-500">We can deliver your package on weekends</span>
       {%- else -%} 
@@ -282,23 +281,6 @@ input#delivery:focus-visible {
       {%- if additionalText != blank -%}
       <span class="tw-block tw-text-right tw-text-xl tw-text-red-500">{{ additionalText }}</span>
       {%- endif -%}
-
-
-      <!-- DEPRECATED_metafields:
-        
-        {%- if shop.metafields.challengesDev.challenge.enabled == true -%}
-        <div class="tw-flex tw-justify-end tw-mt-4">
-            <label for="delivery">Delivery date</label>
-            <input type="text" id="delivery" class="tw-ml-2 tw-border-1 tw-border-black tw-p-3 tw-rounded-md" name="attributes[Delivery Date]">
-        </div>
-        {%- if shop.metafields.challengesDev.challenge.weekends == true -%}
-            <span class="tw-block tw-text-right tw-text-xl tw-text-red-500">We can deliver your package on weekends</span>
-        {%- else -%}
-            <span class="tw-block tw-text-right tw-text-xl tw-text-red-500">We can't deliver your package on weekends</span>
-        {%- endif -%}
-        {%- if shop.metafields.challengesDev.challenge.additionalText != blank -%}
-            <span class="tw-block tw-text-right tw-text-xl tw-text-gray-500">{{shop.metafields.challengesDev.challenge.additionalText}}</span>
-        {%- endif -%}-->
     {%- endif -%} 
   </form>
 </cart-items>
@@ -321,8 +303,7 @@ const options = {
   minDays: parseInt({{minDays}}),
   maxDays: parseInt({{maxDays}}),
   weekends: JSON.parse({{weekends}})
-};/* JSON.parse('{{shop.metafields.challengesDev.challenge | json}}');
-*/
+};
 if(options.minDays > options.maxDays) {
     let days = options.maxDays;
     options.maxDays = options.minDays;
@@ -348,25 +329,13 @@ const datepicker = new Datepicker(elem, datePickerOptions);
   "name": "t:sections.main-cart-items.name",
   "settings": [
     {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "default": false,
-      "label": "t:sections.main-cart-items.settings.show_vendor.label"
-    },
-    {
-    "type": "header",
-    "content": "DELIVERY DATE",
-    },
-    {
-      "type": "checkbox",
-      "id": "enabled",
-      "label": "Enable Delivery Date",
-      "default": true
+      "type": "header",
+      "content": "DELIVERY DATE"
     },
     {
       "type": "range",
       "id": "minDays",
-      "min": 0,
+      "min": 1,
       "max": 100,
       "step": 1,
       "unit": "d",
@@ -385,6 +354,12 @@ const datepicker = new Datepicker(elem, datePickerOptions);
     },
     {
       "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable Delivery Date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
       "id": "weekends",
       "label": "Enable weekends delivery",
       "default": true
@@ -393,6 +368,12 @@ const datepicker = new Datepicker(elem, datePickerOptions);
       "type": "text",
       "id": "additionalText",
       "label": "Additional text",
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.main-cart-items.settings.show_vendor.label"
     }
     ]
 }
